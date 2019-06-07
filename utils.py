@@ -36,3 +36,18 @@ def merge(dfPreds, dfOrig):
     dfn.sort_index(inplace=True)
 
     return dfn
+
+if __name__=="__main__":
+    dforig = pd.DataFrame(np.arange(20).reshape(10, 2), columns=list('ab'))
+    dfpreds = pd.DataFrame([[1, 3], [2, 7], [3, 9]], columns=['RF', 'index'])
+
+    dforig.iloc[1, 1] = np.NaN
+    dforig.iloc[3, 1] = np.NaN
+    dforig.iloc[4, 0] = np.NaN
+
+    # dfnull.reset_index(inplace=True)
+    dforig.reset_index(inplace=True)
+    dfm = merge(dfpreds, dforig)
+    dfm = replaceNaN(dfm, dfpreds.columns)
+    dfm = replaceNaN(dfm, dfm.columns)
+
